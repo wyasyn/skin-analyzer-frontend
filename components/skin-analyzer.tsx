@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 import {
   Card,
   CardContent,
@@ -19,6 +20,7 @@ import {
   isImageBelowSizeLimit,
   compressImage,
 } from "@/lib/image-validation";
+import { PredictionFailed, PredictionResponse } from "@/types";
 
 type AnalysisStatus =
   | "idle"
@@ -28,26 +30,15 @@ type AnalysisStatus =
   | "error"
   | "compressing";
 
-interface SkinCondition {
-  condition: string;
-  description: string;
-  severity: string;
-  recommendedProducts: Product[];
-}
-
-interface Product {
-  id: string;
-  name: string;
-  description: string;
-  imageUrl: string;
-  forConditions: string[];
-}
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 export default function SkinAnalyzer() {
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
   const [status, setStatus] = useState<AnalysisStatus>("idle");
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const [skinResults, setSkinResults] = useState<SkinCondition | null>(null);
+  const [skinResults, setSkinResults] = useState<PredictionResponse | null>(
+    null
+  );
 
   const handleImageCapture = async (imageData: string) => {
     setStatus("validating");
@@ -90,26 +81,60 @@ export default function SkinAnalyzer() {
     setStatus("uploading");
 
     try {
-      // Send the image to your backend API
-      const response = await fetch("/api/analyze-skin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ image: imageData }),
-      });
+      // Convert base64 to Blob
+      const byteString = atob(imageData.split(",")[1]);
+      const mimeString = imageData.split(",")[0].split(":")[1].split(";")[0];
 
-      if (!response.ok) {
-        throw new Error("Failed to analyze skin condition");
+      const ab = new ArrayBuffer(byteString.length);
+      const ia = new Uint8Array(ab);
+      for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
       }
 
+      const blob = new Blob([ab], { type: mimeString });
+      const file = new File([blob], "skin-image.jpg", { type: mimeString });
+
+      // Create form data
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await fetch(`${baseUrl}/predict`, {
+        method: "POST",
+        body: formData,
+      });
+
       const data = await response.json();
-      setSkinResults(data);
-      setStatus("success");
-    } catch (error) {
+
+      if (!response.ok) {
+        if ("detail" in data) {
+          throw new Error(data.detail);
+        } else {
+          throw new Error("Failed to analyze skin condition.");
+        }
+      }
+
+      if ("predicted_condition" in data && "confidence" in data) {
+        setSkinResults(data as PredictionResponse);
+        setStatus("success");
+
+        toast.success("Skin analysis complete!", {
+          description: `Condition: ${data.predicted_condition} (Confidence: ${(
+            data.confidence * 100
+          ).toFixed(1)}%)`,
+        });
+      } else {
+        throw new Error("Unexpected response format.");
+      }
+    } catch (error: any) {
       setStatus("error");
-      setErrorMessage("Failed to analyze skin condition. Please try again.");
-      console.error(error);
+      const message = error.message || "An unexpected error occurred.";
+      setErrorMessage(message);
+
+      toast.error("Analysis Failed", {
+        description: message,
+      });
+
+      console.error("Skin analysis error:", error);
     }
   };
 

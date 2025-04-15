@@ -18,3 +18,7 @@ export interface PredictionResponse {
   confidence: number;
   info?: ConditionInfo; // only present if confidence >= 0.8
 }
+
+export interface PredictionFailed {
+  detail: string;
+}
