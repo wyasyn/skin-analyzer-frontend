@@ -55,16 +55,16 @@ export default function SkinAnalyzer() {
         processedImage = await compressImage(imageData, maxSizeKB);
       }
 
-      // Validate that the image contains at least 10% skin
-      const isValid = await validateSkinPercentage(processedImage, 10);
+      // // Validate that the image contains at least 10% skin
+      // const isValid = await validateSkinPercentage(processedImage, 10);
 
-      if (!isValid) {
-        setStatus("error");
-        setErrorMessage(
-          "The image doesn't contain enough skin (minimum 10% required). Please try again."
-        );
-        return;
-      }
+      // if (!isValid) {
+      //   setStatus("error");
+      //   setErrorMessage(
+      //     "The image doesn't contain enough skin (minimum 10% required). Please try again."
+      //   );
+      //   return;
+      // }
 
       setCapturedImage(processedImage);
       await analyzeSkin(processedImage);
