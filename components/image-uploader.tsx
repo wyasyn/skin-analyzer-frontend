@@ -5,7 +5,7 @@ import type React from "react";
 import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Upload, X } from "lucide-react";
+import { FileImage, X } from "lucide-react";
 
 interface ImageUploaderProps {
   onUpload: (imageData: string) => void;
@@ -51,28 +51,45 @@ export default function ImageUploader({
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center relative group">
       <input
         placeholder="Upload your skin"
         type="file"
         accept="image/*"
         onChange={handleFileChange}
-        className="hidden"
+        className="absolute inset-0 z-10 opacity-0"
         ref={fileInputRef}
         disabled={disabled}
       />
 
       {!previewUrl ? (
         <Card
-          className="border-dashed border-2 flex flex-col items-center justify-center p-6 cursor-pointer w-full max-w-md mx-auto mb-4 aspect-square"
+          className="border-dashed border-2 border-indigo-500/30 group-hover:bg-indigo-500 duration-300 transition-all flex flex-col items-center justify-center p-6 w-full max-w-md mx-auto mb-4 aspect-square cursor-pointer"
           onClick={() => fileInputRef.current?.click()}
         >
-          <Upload className="h-10 w-10 text-muted-foreground mb-2" />
-          <p className="text-sm text-muted-foreground text-center">
-            Click to upload an image of your skin
+          <div className="flex items-center justify-center mb-4">
+            <FileImage
+              size={50}
+              className="text-indigo-500/75 -rotate-6 group-hover:text-white/75"
+            />
+            <FileImage
+              size={50}
+              className="text-indigo-500/75 rotate-6 group-hover:text-white/75"
+            />
+          </div>
+
+          <p className="text-lg max-w-[30ch] text-muted-foreground text-center group-hover:text-white">
+            <span className="text-indigo-500 font-semibold group-hover:text-sky-300">
+              Click
+            </span>{" "}
+            or{" "}
+            <span className="text-indigo-500 font-semibold group-hover:text-sky-300">
+              Drag & Drop
+            </span>{" "}
+            to upload an image of your skin
           </p>
-          <p className="text-xs text-muted-foreground mt-2 text-center">
-            JPG, PNG or GIF (max. 10MB)
+          <p className="text-xs text-muted-foreground mt-2 text-center group-hover:text-white">
+            JPG, PNG or GIF (max. 1MB)
           </p>
         </Card>
       ) : (
