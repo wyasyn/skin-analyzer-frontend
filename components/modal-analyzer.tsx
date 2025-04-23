@@ -28,7 +28,7 @@ export default function ModalAnalyzer() {
   }, []);
 
   const handleConsentCancel = () => {
-    router.push("/");
+    router.push("/analyze/acne");
   };
 
   const handleConsentAllow = () => {

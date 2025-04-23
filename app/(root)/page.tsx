@@ -18,9 +18,7 @@ export default function HomePage() {
         </p>
         <GetStarted />
       </div>
-      <div className="flex flex-col gap-4 text-center justify-center bg-[url(/hero.jpg)] aspect-square md:aspect-video rounded-2xl my-14 relative bg-cover bg-center bg-no-repeat">
-        <VideoHero />
-      </div>
+      <div className="flex flex-col gap-4 text-center justify-center bg-[url(/hero.jpg)] aspect-square md:aspect-video rounded-2xl my-14 relative bg-cover bg-center bg-no-repeat"></div>
       <Steps />
       <Faq />
     </section>
