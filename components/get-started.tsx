@@ -28,3 +28,23 @@ export default function GetStarted() {
     </Button>
   );
 }
+
+export function AnalyzeLink() {
+  const { data: session } = useSession();
+  const router = useRouter();
+  return (
+    <Button
+      variant="link"
+      className="w-full max-w-[300px] mx-auto my-8 text-muted-foreground"
+      onClick={() => {
+        if (session) {
+          router.push("/analyze");
+        } else {
+          signIn("google", { redirectTo: "/analyze" });
+        }
+      }}
+    >
+      Analyze
+    </Button>
+  );
+}

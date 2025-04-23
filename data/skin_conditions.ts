@@ -637,7 +637,7 @@ export const data: ConditionInfo[] = [
     ],
   },
   {
-    condition: "Unspecified",
+    condition: "General",
     description:
       "Unspecified skin conditions are those that do not fall into a specific category or are not clearly defined.",
     recommended_products: [

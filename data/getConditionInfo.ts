@@ -6,3 +6,12 @@ export function getConditionInfo(condition: string): ConditionInfo | undefined {
     (item) => item.condition.toLowerCase() === condition.toLowerCase()
   );
 }
+
+export function getAllConditions(): { condition: string; count: number }[] {
+  return data
+    .map((item) => ({
+      condition: item.condition,
+      count: item.recommended_products.length,
+    }))
+    .sort((a, b) => b.count - a.count);
+}

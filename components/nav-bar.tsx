@@ -2,6 +2,8 @@ import UserButton from "./user-button";
 import SignInButton from "./signin";
 import Link from "next/link";
 import { auth } from "@/auth";
+import { AnalyzeLink } from "./get-started";
+import { Button } from "./ui/button";
 
 export default async function Navbar() {
   const session = await auth();
@@ -18,6 +20,17 @@ export default async function Navbar() {
           />
         </Link>
         <section className="flex items-center gap-3">
+          <div className="hidden md:flex items-center text-sm text-muted-foreground mr-4">
+            <Link href="/browse/acne">
+              <Button
+                variant={"link"}
+                className="text-sm text-muted-foreground"
+              >
+                Browse
+              </Button>
+            </Link>
+            <AnalyzeLink />
+          </div>
           {!session?.user ? (
             <SignInButton />
           ) : (

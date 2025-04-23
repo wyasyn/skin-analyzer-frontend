@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { RefreshCw } from "lucide-react";
 import { PredictionResponse } from "@/types";
+import Link from "next/link";
 
 interface SkinResultsProps {
   capturedImage: string;
@@ -45,6 +46,14 @@ export default function SkinResults({
                 </p>
               </CardContent>
             </Card>
+            <a
+              href="https://calendly.com/auroraorganic4u"
+              target="_blank"
+              rel="noreferrer noopener"
+              className="mt-8 block"
+            >
+              <Button variant={"default"}>Book free consultation</Button>
+            </a>
           </div>
         </div>
       </div>
