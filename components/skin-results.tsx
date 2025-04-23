@@ -23,7 +23,7 @@ export default function SkinResults({
           <h3 className="text-lg font-medium mb-2">Your Skin Analysis</h3>
           <Card className="overflow-hidden">
             <img
-              src={capturedImage || "/placeholder.svg"}
+              src={capturedImage || "/placeholder-image.jpg"}
               alt="Analyzed skin"
               className="w-full h-auto aspect-square object-cover"
             />
@@ -54,7 +54,7 @@ export default function SkinResults({
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {skinCondition.info?.recommended_products.map((product) => (
             <a
-              key={product.image_url}
+              key={product.image}
               href={product.link}
               target="_blank"
               rel="noreferrer"
@@ -62,10 +62,7 @@ export default function SkinResults({
               <Card className="overflow-hidden">
                 <div className="aspect-square overflow-hidden">
                   <img
-                    src={
-                      product.image_url ||
-                      "/placeholder.svg?height=200&width=200"
-                    }
+                    src={product.image || "/placeholder-image.jpg"}
                     alt={product.title}
                     className="w-full h-full object-cover transition-transform hover:scale-105"
                   />

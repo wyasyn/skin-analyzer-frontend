@@ -2,8 +2,7 @@ export interface Product {
   title: string;
   price: string;
   description: string;
-  ingredients: string[];
-  image_url: string;
+  image: string;
   link: string;
 }
 
