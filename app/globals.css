@@ -92,3 +92,9 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .wrapper {
+    @apply max-w-3xl mx-auto px-3;
+  }
+}

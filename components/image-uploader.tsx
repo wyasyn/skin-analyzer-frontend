@@ -65,31 +65,26 @@ export default function ImageUploader({
 
         {!previewUrl ? (
           <Card
-            className="border-dashed border-2 border-indigo-500/30 group-hover:bg-indigo-500 duration-300 transition-all flex flex-col items-center justify-center p-6 w-full max-w-md mx-auto mb-4 aspect-square cursor-pointer"
+            className="border-dashed border-2 duration-300 transition-all flex flex-col items-center justify-center p-6 w-full max-w-md mx-auto mb-4 aspect-square cursor-pointer"
             onClick={() => fileInputRef.current?.click()}
           >
             <div className="flex items-center justify-center mb-4">
               <FileImage
                 size={50}
-                className="text-indigo-500/75 -rotate-6 group-hover:text-white/75"
+                className="text-muted-foreground -rotate-6 "
               />
               <FileImage
                 size={50}
-                className="text-indigo-500/75 rotate-6 group-hover:text-white/75"
+                className="text-muted-foreground rotate-6 "
               />
             </div>
 
-            <p className="text-lg max-w-[30ch] text-muted-foreground text-center group-hover:text-white">
-              <span className="text-indigo-500 font-semibold group-hover:text-sky-300">
-                Click
-              </span>{" "}
-              or{" "}
-              <span className="text-indigo-500 font-semibold group-hover:text-sky-300">
-                Drag & Drop
-              </span>{" "}
-              to upload an image of your skin
+            <p className="text-lg max-w-[30ch] text-muted-foreground text-center ">
+              <span className=" font-semibold ">Click</span> or{" "}
+              <span className=" font-semibold ">Drag & Drop</span> to upload an
+              image of your skin
             </p>
-            <p className="text-xs text-muted-foreground mt-2 text-center group-hover:text-white">
+            <p className="text-xs text-muted-foreground mt-2 text-center ">
               JPG, PNG or GIF (max. 1MB)
             </p>
           </Card>
