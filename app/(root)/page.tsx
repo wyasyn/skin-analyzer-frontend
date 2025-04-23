@@ -1,4 +1,7 @@
+import Faq from "@/components/faq";
 import GetStarted from "@/components/get-started";
+import Steps from "@/components/steps";
+import StepsCard from "@/components/steps-card";
 import VideoHero from "@/components/video";
 
 export default function HomePage() {
@@ -18,6 +21,8 @@ export default function HomePage() {
       <div className="flex flex-col gap-4 text-center justify-center bg-[url(/hero.jpg)] aspect-square md:aspect-video rounded-2xl my-14 relative bg-cover bg-center bg-no-repeat">
         <VideoHero />
       </div>
+      <Steps />
+      <Faq />
     </section>
   );
 }
