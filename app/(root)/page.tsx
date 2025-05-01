@@ -7,7 +7,7 @@ export default function HomePage() {
     <section className="wrapper">
       <div className="flex flex-col gap-4 text-center justify-center pt-12 lg:pt-24 ">
         <h1 className="text-5xl font-bold lg:text-6xl">
-          Discover What Your Skin Really Needs
+          Revolutionize your skin with AI PRECISION
         </h1>
         <p className="max-w-[55ch] mx-auto text-muted-foreground">
           Aurora Skin Analyzer uses AI to detect skin conditions in seconds and
