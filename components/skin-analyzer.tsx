@@ -157,7 +157,7 @@ export default function SkinAnalyzer() {
               </Tabs>
             </div>
             {/* RIGHT: instructions */}
-            <div className="flex-1 bg-gray-50 p-6 rounded-lg border border-gray-200">
+            <div className="flex-1 p-6 rounded-lg border ">
               <h4 className="text-lg font-semibold mb-3">
                 Tips for a Great Photo
               </h4>
