@@ -1,22 +1,11 @@
 import Faq from "@/components/faq";
-import GetStarted from "@/components/get-started";
+import HeroSection from "@/components/hero";
 import Steps from "@/components/steps";
 
 export default function HomePage() {
   return (
-    <section className="wrapper">
-      <div className="flex flex-col gap-4 text-center justify-center pt-12 lg:pt-24 ">
-        <h1 className="text-5xl font-bold lg:text-6xl">
-          Revolutionize your skin with AI PRECISION
-        </h1>
-        <p className="max-w-[55ch] mx-auto text-muted-foreground">
-          Aurora Skin Analyzer uses AI to detect skin conditions in seconds and
-          gives you instant, personalized skincare insights—right from your
-          device.
-        </p>
-        <GetStarted />
-      </div>
-      <div className="flex flex-col gap-4 text-center justify-center bg-[url(/hero.jpg)] aspect-square md:aspect-video rounded-2xl my-14 relative bg-cover bg-center bg-no-repeat"></div>
+    <section>
+      <HeroSection />
       <Steps />
       <Faq />
     </section>

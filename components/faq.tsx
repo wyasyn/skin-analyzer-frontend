@@ -9,7 +9,7 @@ import { aiSkinAnalyzerFAQ } from "@/data/faq";
 
 export default function Faq() {
   return (
-    <div className=" pb-32">
+    <div className=" pb-32 wrapper">
       <div className="flex flex-col gap-4 text-center justify-center pt-12 lg:pt-24  ">
         <h1 className="text-3xl font-bold lg:text-5xl">
           Frequently Asked Questions
@@ -18,7 +18,12 @@ export default function Faq() {
           Here are some common questions and answers about our skin analyzer.
         </p>
       </div>
-      <Accordion type="single" collapsible className="w-full" defaultValue="0">
+      <Accordion
+        type="single"
+        collapsible
+        className="w-full max-w-2xl mt-8 mx-auto"
+        defaultValue="0"
+      >
         {aiSkinAnalyzerFAQ.map((item, index) => (
           <AccordionItem value={String(index)} key={index} className="py-2">
             <AccordionTrigger className="py-2 text-[15px] leading-6 hover:no-underline">

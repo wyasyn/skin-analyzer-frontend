@@ -15,20 +15,16 @@ import { Camera, Upload, Loader2, RefreshCw } from "lucide-react";
 import WebcamCapture from "./webcam-capture";
 import ImageUploader from "./image-uploader";
 import SkinResults from "./skin-results";
-import {
-  validateSkinPercentage,
-  isImageBelowSizeLimit,
-  compressImage,
-} from "@/lib/image-validation";
-import { PredictionFailed, PredictionResponse } from "@/types";
+import { isImageBelowSizeLimit, compressImage } from "@/lib/image-validation";
+import { PredictionResponse } from "@/types";
 
 type AnalysisStatus =
   | "idle"
   | "validating"
+  | "compressing"
   | "uploading"
   | "success"
-  | "error"
-  | "compressing";
+  | "error";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -45,35 +41,22 @@ export default function SkinAnalyzer() {
     setErrorMessage("");
 
     try {
-      // Check image size
       const maxSizeKB = 700;
-      let processedImage = imageData;
+      let processed = imageData;
 
       if (!isImageBelowSizeLimit(imageData, maxSizeKB)) {
         setStatus("compressing");
-        // Compress the image to be below the size limit
-        processedImage = await compressImage(imageData, maxSizeKB);
+        processed = await compressImage(imageData, maxSizeKB);
       }
 
-      // // Validate that the image contains at least 10% skin
-      // const isValid = await validateSkinPercentage(processedImage, 10);
-
-      // if (!isValid) {
-      //   setStatus("error");
-      //   setErrorMessage(
-      //     "The image doesn't contain enough skin (minimum 10% required). Please try again."
-      //   );
-      //   return;
-      // }
-
-      setCapturedImage(processedImage);
-      await analyzeSkin(processedImage);
-    } catch (error) {
+      setCapturedImage(processed);
+      await analyzeSkin(processed);
+    } catch (err) {
+      console.error(err);
       setStatus("error");
       setErrorMessage(
         "An error occurred while processing the image. Please try again."
       );
-      console.error(error);
     }
   };
 
@@ -81,60 +64,39 @@ export default function SkinAnalyzer() {
     setStatus("uploading");
 
     try {
-      // Convert base64 to Blob
-      const byteString = atob(imageData.split(",")[1]);
-      const mimeString = imageData.split(",")[0].split(":")[1].split(";")[0];
+      // build a File from base64
+      const [meta, b64] = imageData.split(",");
+      const mime = meta.match(/:(.*?);/)![1];
+      const bytes = atob(b64);
+      const buf = new ArrayBuffer(bytes.length);
+      const arr = new Uint8Array(buf);
+      for (let i = 0; i < bytes.length; i++) arr[i] = bytes.charCodeAt(i);
+      const blob = new Blob([buf], { type: mime });
+      const file = new File([blob], "skin.jpg", { type: mime });
 
-      const ab = new ArrayBuffer(byteString.length);
-      const ia = new Uint8Array(ab);
-      for (let i = 0; i < byteString.length; i++) {
-        ia[i] = byteString.charCodeAt(i);
-      }
+      const form = new FormData();
+      form.append("file", file);
 
-      const blob = new Blob([ab], { type: mimeString });
-      const file = new File([blob], "skin-image.jpg", { type: mimeString });
-
-      // Create form data
-      const formData = new FormData();
-      formData.append("file", file);
-
-      const response = await fetch(`${baseUrl}/predict`, {
+      const res = await fetch(`${baseUrl}/predict`, {
         method: "POST",
-        body: formData,
+        body: form,
       });
+      const data = await res.json();
 
-      const data = await response.json();
+      if (!res.ok) throw new Error(data.detail || "Analysis failed.");
 
-      if (!response.ok) {
-        if ("detail" in data) {
-          throw new Error(data.detail);
-        } else {
-          throw new Error("Failed to analyze skin condition.");
-        }
-      }
-
-      if ("predicted_condition" in data && "confidence" in data) {
-        setSkinResults(data as PredictionResponse);
-        setStatus("success");
-
-        toast.success("Skin analysis complete!", {
-          description: `Condition: ${data.predicted_condition} (Confidence: ${(
-            data.confidence * 100
-          ).toFixed(1)}%)`,
-        });
-      } else {
-        throw new Error("Unexpected response format.");
-      }
-    } catch (error: any) {
+      setSkinResults(data as PredictionResponse);
+      setStatus("success");
+      toast.success("Analysis complete!", {
+        description: `Condition: ${
+          data.predicted_condition
+        } — ${data.confidence.toFixed(1)}%`,
+      });
+    } catch (err: any) {
+      console.error(err);
       setStatus("error");
-      const message = error.message || "An unexpected error occurred.";
-      setErrorMessage(message);
-
-      toast.error("Analysis Failed", {
-        description: message,
-      });
-
-      console.error("Skin analysis error:", error);
+      setErrorMessage(err.message || "Unexpected error.");
+      toast.error("Analysis failed", { description: errorMessage });
     }
   };
 
@@ -150,70 +112,78 @@ export default function SkinAnalyzer() {
       <CardHeader>
         <CardTitle>Skin Analysis</CardTitle>
         <CardDescription>
-          Take a photo or upload an image of your skin for analysis
+          Take or upload a photo of your skin for AI-powered analysis
         </CardDescription>
       </CardHeader>
+
       <CardContent>
-        {status === "success" && skinResults ? (
+        {/* SUCCESS */}
+        {status === "success" && skinResults && (
           <SkinResults
             capturedImage={capturedImage!}
             skinCondition={skinResults}
             onReset={resetAnalysis}
           />
-        ) : (
-          <Tabs defaultValue="upload" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-4">
-              <TabsTrigger value="camera">
-                <Camera className="mr-2 h-4 w-4" />
-                Camera
-              </TabsTrigger>
-              <TabsTrigger value="upload">
-                <Upload className="mr-2 h-4 w-4" />
-                Upload
-              </TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="camera" className="mt-0">
-              <WebcamCapture
-                onCapture={handleImageCapture}
-                disabled={status !== "idle"}
-              />
-            </TabsContent>
-
-            <TabsContent value="upload" className="mt-0">
-              <ImageUploader
-                onUpload={handleImageCapture}
-                disabled={status !== "idle"}
-              />
-            </TabsContent>
-          </Tabs>
         )}
 
+        {/* IDLE */}
+        {status === "idle" && !skinResults && (
+          <div className="flex flex-col lg:flex-row gap-8">
+            {/* LEFT: capture/upload */}
+            <div className="flex-1">
+              <Tabs defaultValue="upload" className="w-full">
+                <TabsList className="grid grid-cols-2 mb-4">
+                  <TabsTrigger value="camera">
+                    <Camera className="mr-2 h-4 w-4" />
+                    Camera
+                  </TabsTrigger>
+                  <TabsTrigger value="upload">
+                    <Upload className="mr-2 h-4 w-4" />
+                    Upload
+                  </TabsTrigger>
+                </TabsList>
+                <TabsContent value="camera">
+                  <WebcamCapture
+                    onCapture={handleImageCapture}
+                    disabled={status !== "idle"}
+                  />
+                </TabsContent>
+                <TabsContent value="upload">
+                  <ImageUploader
+                    onUpload={handleImageCapture}
+                    disabled={status !== "idle"}
+                  />
+                </TabsContent>
+              </Tabs>
+            </div>
+            {/* RIGHT: instructions */}
+            <div className="flex-1 bg-gray-50 p-6 rounded-lg border border-gray-200">
+              <h4 className="text-lg font-semibold mb-3">
+                Tips for a Great Photo
+              </h4>
+              <ul className="list-disc list-inside space-y-2 text-gray-700">
+                <li>Use natural or soft lighting—no harsh shadows.</li>
+                <li>Hold the camera ~6–12 inches from the area of interest.</li>
+                <li>Keep the device steady—use both hands or a stand.</li>
+                <li>Ensure skin is clean and makeup-free.</li>
+                <li>Clean the lens for the sharpest image.</li>
+              </ul>
+            </div>
+          </div>
+        )}
+
+        {/* VALIDATING / COMPRESSING / UPLOADING */}
         {status === "validating" && (
-          <div className="flex flex-col items-center justify-center py-8">
-            <Loader2 className="h-8 w-8 animate-spin text-primary mb-2" />
-            <p className="text-sm text-muted-foreground">Validating image...</p>
-          </div>
+          <LoadingState message="Validating image..." />
         )}
-
         {status === "compressing" && (
-          <div className="flex flex-col items-center justify-center py-8">
-            <Loader2 className="h-8 w-8 animate-spin text-primary mb-2" />
-            <p className="text-sm text-muted-foreground">
-              Compressing image to reduce size...
-            </p>
-          </div>
+          <LoadingState message="Compressing image..." />
         )}
-
         {status === "uploading" && (
-          <div className="flex flex-col items-center justify-center py-8">
-            <Loader2 className="h-8 w-8 animate-spin text-primary mb-2" />
-            <p className="text-sm text-muted-foreground">
-              Analyzing skin condition...
-            </p>
-          </div>
+          <LoadingState message="Analyzing skin condition..." />
         )}
 
+        {/* ERROR */}
         {status === "error" && (
           <div className="bg-destructive/10 p-4 rounded-md mt-4">
             <p className="text-destructive text-sm">{errorMessage}</p>
@@ -230,5 +200,15 @@ export default function SkinAnalyzer() {
         )}
       </CardContent>
     </Card>
+  );
+}
+
+// Helper loader component
+function LoadingState({ message }: { message: string }) {
+  return (
+    <div className="flex flex-col items-center justify-center py-8">
+      <Loader2 className="h-8 w-8 animate-spin text-primary mb-2" />
+      <p className="text-sm text-muted-foreground">{message}</p>
+    </div>
   );
 }

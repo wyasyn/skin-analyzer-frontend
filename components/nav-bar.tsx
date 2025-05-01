@@ -11,7 +11,7 @@ export default async function Navbar() {
   const image = user?.image || "/placeholder-user.jpg";
   return (
     <header className="sticky top-0 z-50 bg-background/75 backdrop-blur-sm w-full ">
-      <nav className="flex items-center justify-between gap-3 wrapper">
+      <nav className="flex max-sm:py-2 items-center justify-between gap-3 wrapper">
         <Link href="/">
           <img
             src="/logo2.png"
