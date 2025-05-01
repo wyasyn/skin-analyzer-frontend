@@ -44,7 +44,7 @@ export function AnalyzeLink() {
         }
       }}
     >
-      Analyze
+      Skin Analysis
     </Button>
   );
 }

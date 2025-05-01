@@ -1,8 +1,6 @@
 import Faq from "@/components/faq";
 import GetStarted from "@/components/get-started";
 import Steps from "@/components/steps";
-import StepsCard from "@/components/steps-card";
-import VideoHero from "@/components/video";
 
 export default function HomePage() {
   return (

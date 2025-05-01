@@ -14,9 +14,9 @@ export default async function Navbar() {
       <nav className="flex items-center justify-between gap-3 py-4 wrapper">
         <Link href="/">
           <img
-            src="/logo.png"
+            src="/logo2.png"
             alt="Logo"
-            className="h-12 w-auto object-contain"
+            className="h-16 w-auto object-contain"
           />
         </Link>
         <section className="flex items-center gap-3">
@@ -26,7 +26,7 @@ export default async function Navbar() {
                 variant={"link"}
                 className="text-sm text-muted-foreground"
               >
-                Browse
+                Browse Products
               </Button>
             </Link>
             <AnalyzeLink />

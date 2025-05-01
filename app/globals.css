@@ -95,6 +95,6 @@ body {
 
 @layer utilities {
   .wrapper {
-    @apply max-w-3xl mx-auto px-3;
+    @apply max-w-5xl mx-auto px-3;
   }
 }
