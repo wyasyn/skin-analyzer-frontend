@@ -34,7 +34,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          "flex flex-col min-h-screen bg-background",
+          "flex flex-col min-h-screen bg-background mesh",
           inter.variable,
           playfair.variable
         )}

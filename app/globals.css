@@ -89,7 +89,7 @@ body {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply text-foreground font-sans antialiased;
   }
   h1,
   h2,
@@ -103,4 +103,34 @@ body {
   .wrapper {
     @apply max-w-5xl mx-auto px-3;
   }
+}
+
+.mesh {
+  background-color: hsla(65, 60%, 97%, 1);
+  background-image: radial-gradient(
+      circle at 92% 93%,
+      hsla(190, 56%, 91%, 0.53) 11%,
+      transparent 79%
+    ),
+    radial-gradient(
+      circle at 24% 86%,
+      hsla(13, 52%, 90%, 1) 16%,
+      transparent 83%
+    ),
+    radial-gradient(
+      circle at 11% 94%,
+      hsla(43, 55%, 90%, 1) 16%,
+      transparent 51%
+    ),
+    radial-gradient(
+      circle at 36% 38%,
+      hsla(81, 82%, 98%, 1) 3%,
+      transparent 59%
+    ),
+    radial-gradient(
+      circle at 44% 9%,
+      hsla(49, 30%, 79%, 0.48) 13%,
+      transparent 83%
+    );
+  background-blend-mode: normal, normal, normal, normal, normal;
 }

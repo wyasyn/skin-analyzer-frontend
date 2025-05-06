@@ -10,7 +10,7 @@ export default async function Navbar() {
   const user = session?.user;
   const image = user?.image || "/placeholder-user.jpg";
   return (
-    <header className="sticky top-0 z-50 bg-background/75 backdrop-blur-sm w-full ">
+    <header className="fixed top-0 z-50 bg-transparent backdrop-blur-sm w-full ">
       <nav className="flex max-sm:py-2 items-center justify-between gap-3 wrapper">
         <Link href="/">
           <img

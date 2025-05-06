@@ -41,7 +41,7 @@ export default function AnalyzePage() {
 
   // Otherwise, show the consent form
   return (
-    <div className=" flex items-center justify-center mt-24">
+    <div className=" flex items-center justify-center mt-24 ">
       <Card className="w-full max-w-lg">
         <CardHeader className="flex items-center gap-4 pb-0">
           <div className="p-2 rounded-full text-red-600">

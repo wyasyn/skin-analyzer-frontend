@@ -8,7 +8,7 @@ export default function HeroSection() {
     "Comprehensive Dermatological Insights",
   ];
   return (
-    <div className=" bg-[url('/hero-bg.jpg')] md:bg-[url('/hero-bg-2.jpg')] bg-no-repeat bg-cover bg-center md:min-h-[700px]">
+    <div className=" bg-[url('/hero-bg.jpg')] md:bg-[url('/hero-bg-2.jpg')] bg-no-repeat bg-cover bg-center md:min-h-[700px] pt-14 md:pt-24">
       <div className="wrapper  ">
         <div className="py-12 md:py-16 lg:py-24">
           <h1 className=" text-3xl md:text-4xl lg:text-5xl font-bold max-w-[15ch]  ">
