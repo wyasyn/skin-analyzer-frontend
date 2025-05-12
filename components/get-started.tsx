@@ -14,7 +14,7 @@ export default function GetStarted() {
   return (
     <Button
       variant="outline"
-      className="w-full max-w-[300px] mx-auto my-8"
+      className="w-full max-w-[300px] mx-auto my-8 "
       onClick={() => {
         if (session) {
           router.push("/analyze");
@@ -35,7 +35,7 @@ export function AnalyzeLink() {
   return (
     <Button
       variant="link"
-      className="w-full max-w-[300px] mx-auto my-8 text-muted-foreground"
+      className="w-full max-w-[300px] mx-auto my-8 text-muted-foreground "
       onClick={() => {
         if (session) {
           router.push("/analyze");
