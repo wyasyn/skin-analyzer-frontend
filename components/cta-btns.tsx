@@ -10,10 +10,9 @@ export default function CtaBtns() {
   const { data: session } = useSession();
   const router = useRouter();
   return (
-    <div className="flex flex-col gap-4 mt-4 md:flex-row md:gap-8 pt-8 ">
+    <div className="flex gap-4 flex-row md:gap-8 ">
       <Call2Action
-        title="Image Diagnostic"
-        icon="/image.png"
+        title="Try Now"
         isDefault={true}
         onClick={() => {
           if (session) {
@@ -27,8 +26,7 @@ export default function CtaBtns() {
         onClick={() => {
           router.push("https://calendly.com/auroraorganic4u");
         }}
-        title="Online Consultancy"
-        icon="/camera.png"
+        title="Book Now"
         isDefault={false}
       />
     </div>

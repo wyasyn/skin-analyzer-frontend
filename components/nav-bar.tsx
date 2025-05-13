@@ -4,6 +4,8 @@ import Link from "next/link";
 import { auth } from "@/auth";
 import { AnalyzeLink } from "./get-started";
 import { Button } from "./ui/button";
+import { ModeToggle } from "./mode-toggle";
+import Logo from "./logo";
 
 export default async function Navbar() {
   const session = await auth();
@@ -12,13 +14,7 @@ export default async function Navbar() {
   return (
     <header className="sticky top-0 z-50 bg-background/90 backdrop-blur-sm w-full ">
       <nav className="flex max-sm:py-2 items-center justify-between gap-3 wrapper">
-        <Link href="/">
-          <img
-            src="/logo2.png"
-            alt="Logo"
-            className="h-16 w-auto object-contain"
-          />
-        </Link>
+        <Logo />
         <section className="flex items-center gap-3">
           <div className="hidden md:flex items-center text-sm text-muted-foreground mr-4">
             <Link href="/browse/acne">
@@ -40,6 +36,7 @@ export default async function Navbar() {
               image={image}
             />
           )}
+          <ModeToggle />
         </section>
       </nav>
     </header>

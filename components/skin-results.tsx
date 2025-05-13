@@ -20,9 +20,9 @@ export default function SkinResults({
   const recommendedProducts = info?.recommended_products ?? [];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 pb-16">
       {/* Disclaimer */}
-      <div className="flex items-start gap-2 p-4 bg-yellow-50 border-l-4 border-yellow-400 rounded-lg">
+      <div className="flex items-start gap-2 p-4 bg-yellow-50 border-l-4 border-yellow-400 rounded-lg max-w-[500px]">
         <AlertTriangle className="h-5 w-5 text-yellow-600 shrink-0" />
         <div>
           <h4 className="font-semibold text-yellow-700">Disclaimer</h4>
@@ -37,7 +37,7 @@ export default function SkinResults({
       <div className="grid md:grid-cols-2 gap-6">
         {/* Image Preview */}
         <div>
-          <h3 className="text-lg font-medium mb-2">Your Skin Analysis</h3>
+          <h3 className="text-2xl my-4">Your Skin Analysis</h3>
           <Card className="overflow-hidden">
             <img
               src={capturedImage || "/placeholder-image.jpg"}
@@ -50,10 +50,10 @@ export default function SkinResults({
         {/* Analysis Details */}
         <div className="space-y-4">
           <div>
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-lg font-medium">Detected Condition</h3>
+            <div className="flex items-center justify-between">
+              <h3 className="text-2xl font-medium">Detected Condition</h3>
             </div>
-            <Card>
+            <Card className="bg-background/50 my-4 max-w-[400px]">
               <CardContent className="pt-6">
                 <div className="flex items-baseline justify-between">
                   <h4 className="text-xl font-semibold">
@@ -84,9 +84,9 @@ export default function SkinResults({
 
       {/* Recommended Products */}
       {recommendedProducts.length > 0 && (
-        <div>
-          <h3 className="text-lg font-medium mb-4">Recommended Products</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="pt-16 md:pt-32">
+          <h3 className="text-2xl  mb-8 md:mb-12">Recommended Products</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pb-10">
             {recommendedProducts.map((product) => (
               <a
                 key={product.image}

@@ -22,14 +22,14 @@ export default async function ConditionPage(props: { params: Params }) {
   }
   return (
     <div className="wrapper">
-      <h1 className="text-2xl font-bold mb-4">
+      <h1 className="text-3xl md:text-5xl mb-4">
         {conditionInfo.condition} ({conditionInfo.recommended_products.length})
       </h1>
       <p className="text-muted-foreground mb-8 max-w-prose">
         {conditionInfo.description}
       </p>
-      <h2 className="text-lg font-medium mb-4">Recommended Products</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <h2 className="text-2xl mb-8">Recommended Products</h2>
+      <div className="grid grid-cols-1 pb-20 md:pb-40 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {conditionInfo.recommended_products.map((product) => {
           return (
             <a

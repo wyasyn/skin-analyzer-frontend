@@ -161,7 +161,7 @@ export default function SkinAnalyzer() {
               <h4 className="text-lg font-semibold mb-3">
                 Tips for a Great Photo
               </h4>
-              <ul className="list-disc list-inside space-y-2 text-gray-700">
+              <ul className="list-disc list-inside space-y-2 text-muted-foreground ">
                 <li>Use natural or soft lighting—no harsh shadows.</li>
                 <li>Hold the camera ~6–12 inches from the area of interest.</li>
                 <li>Keep the device steady—use both hands or a stand.</li>
