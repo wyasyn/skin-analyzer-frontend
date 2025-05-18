@@ -1,6 +1,12 @@
 import { getAllConditions } from "@/data/getConditionInfo";
 import { get } from "http";
 import BrowseNav from "./browse-nav";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title:
+    "Browse Products | Aurora Skin Analyzer – AI-Powered Skin Condition Detection & Care",
+};
 
 export default function layout({ children }: { children: React.ReactNode }) {
   const conditions = getAllConditions();
