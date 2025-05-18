@@ -6,6 +6,9 @@ export default function Footer() {
       <div className="wrapper flex items-center justify-between py-4 text-sm text-muted-foreground">
         <p>© {new Date().getFullYear()} Aurora Organics Inc.</p>
         {/* <p>Made with ❤️ by Cavendish University Uganda</p> */}
+        <Link href="/browse/acne" className="hover:underline duration-300">
+          Browse Products
+        </Link>
       </div>
       <div className="wrapper flex items-center justify-between py-4 text-sm text-muted-foreground">
         <Link href="/privacy-policy" className="hover:underline duration-300">
