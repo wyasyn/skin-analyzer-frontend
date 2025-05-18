@@ -1,5 +1,6 @@
+import { PrivacyPolicyPage } from "@/components/legal";
 import React from "react";
 
 export default function PrivacyPolicy() {
-  return <main className="wrapper mt-12">Privacy Policy</main>;
+  return <PrivacyPolicyPage />;
 }

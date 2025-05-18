@@ -26,7 +26,7 @@ export default function Faq() {
       >
         {aiSkinAnalyzerFAQ.map((item, index) => (
           <AccordionItem value={String(index)} key={index} className="py-2">
-            <AccordionTrigger className="p-3 rounded-lg text-lg duration-300 hover:bg-secondary leading-6 hover:no-underline">
+            <AccordionTrigger className="p-3 rounded-lg text-lg duration-300 hover:bg-secondary font-sans leading-6 hover:no-underline">
               {item.question}
             </AccordionTrigger>
             <AccordionContent className="text-muted-foreground py-2 px-3">

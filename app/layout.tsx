@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Toaster } from "@/components/ui/sonner";
 import { SessionProvider } from "next-auth/react";
 import { Inter, Playfair_Display } from "next/font/google";
+import localFont from "next/font/local";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 import Footer from "@/components/footer";
@@ -9,14 +10,20 @@ import { cn } from "@/lib/utils";
 
 const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-sans",
+  display: "swap",
+});
+
+const gambarino = localFont({
+  src: "../assets/fonts/gambarino.woff2",
+  variable: "--font-serif",
   display: "swap",
 });
 
 const playfair = Playfair_Display({
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
-  variable: "--font-playfair",
+  variable: "--font-serif",
   display: "swap",
 });
 
@@ -37,7 +44,7 @@ export default function RootLayout({
         className={cn(
           "flex flex-col min-h-screen bg-background mesh",
           inter.variable,
-          playfair.variable
+          gambarino.variable
         )}
       >
         <ThemeProvider

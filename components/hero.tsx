@@ -2,6 +2,7 @@ import Image from "next/image";
 import CtaBtns from "./cta-btns";
 import heroImg from "@/assets/hero.webp";
 import { HeroWrapper } from "./mesh";
+import HeroMotion from "./hero-motion";
 
 export default function HeroSection() {
   const list = [
@@ -39,17 +40,19 @@ export default function HeroSection() {
             </ul>
             <CtaBtns />
           </div>
-          <div>
-            <Image
-              src={heroImg.src}
-              width={heroImg.width}
-              height={heroImg.height}
-              alt="hero"
-              className="rounded-2xl object-contain"
-              placeholder="blur"
-              blurDataURL={heroImg.blurDataURL}
-              priority
-            />
+          <div className="overflow-clip rounded-2xl">
+            <HeroMotion>
+              <Image
+                src={heroImg.src}
+                width={heroImg.width}
+                height={heroImg.height}
+                alt="hero"
+                className="rounded-2xl object-contain"
+                placeholder="blur"
+                blurDataURL={heroImg.blurDataURL}
+                priority
+              />
+            </HeroMotion>
           </div>
         </div>
       </section>

@@ -43,7 +43,7 @@ const SkinAnalyzerSteps = () => {
       <h2 className="text-3xl md:text-5xl text-center mb-10 md:mb-24 ">
         How It Works
       </h2>
-      <div className="grid gap-12 sm:grid-cols-2 ">
+      <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4 ">
         {aiSkinAnalyzerSteps.map((step, index) => (
           <motion.div
             key={index}
@@ -51,7 +51,7 @@ const SkinAnalyzerSteps = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: index * 0.1 }}
             viewport={{ once: true }}
-            className="flex items-start gap-4 flex-col py-6 px-8 rounded-2xl shadow-md border-l-4 border-primary hover:shadow-lg transition-shadow"
+            className="flex items-start gap-4 flex-col py-6 px-8 rounded-2xl shadow-md border-4 border-primary/75 hover:shadow-lg hover:shadow-primary/50 transition-shadow"
           >
             <div className="flex-shrink-0 flex items-start justify-between w-full">
               <span className="text-5xl font-mono font-bold">{index + 1}</span>

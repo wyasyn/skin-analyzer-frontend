@@ -21,7 +21,7 @@ export default function Call2Action({
   return (
     <Button
       className={cn(
-        "text-start font-bold group w-fit",
+        "text-start font-bold group w-fit px-8 py-4",
         isDefault
           ? "bg-foreground text-background"
           : "bg-background text-foreground",

@@ -10,7 +10,7 @@ export default function CtaBtns() {
   const { data: session } = useSession();
   const router = useRouter();
   return (
-    <div className="flex gap-4 flex-row md:gap-8 ">
+    <div className="flex gap-4 max-[380px]:flex-col flex-row md:gap-8 ">
       <Call2Action
         title="Try Now"
         isDefault={true}
