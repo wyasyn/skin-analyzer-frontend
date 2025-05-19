@@ -77,7 +77,7 @@ export default function SkinAnalyzer() {
       const form = new FormData();
       form.append("file", file);
 
-      const res = await fetch(`${baseUrl}/predict`, {
+      const res = await fetch(`${baseUrl}/predict/`, {
         method: "POST",
         body: form,
       });
@@ -88,9 +88,9 @@ export default function SkinAnalyzer() {
       setSkinResults(data as PredictionResponse);
       setStatus("success");
       toast.success("Analysis complete!", {
-        description: `Condition: ${
-          data.predicted_condition
-        } — ${data.confidence.toFixed(1)}%`,
+        description: `Condition: ${data.predicted_condition} — ${(
+          data.confidence * 100
+        ).toFixed(1)}%`,
       });
     } catch (err: any) {
       console.error(err);
@@ -110,7 +110,9 @@ export default function SkinAnalyzer() {
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>Skin Analysis</CardTitle>
+        <CardTitle className="text-3xl md:text-5xl font-serif font-normal">
+          Skin Analysis
+        </CardTitle>
         <CardDescription>
           Take or upload a photo of your skin for AI-powered analysis
         </CardDescription>
