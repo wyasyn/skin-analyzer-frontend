@@ -31,6 +31,17 @@ export const metadata: Metadata = {
   title: "Aurora Skin Analyzer – AI-Powered Skin Condition Detection & Care",
   description:
     "Detect acne, wrinkles, dryness & more with Aurora – an AI skin analyzer using deep learning & IoT for accurate, real-time skin health insights and care tips.",
+  openGraph: {
+    type: "website",
+    url: "https://skin-analyzer-frontend.vercel.app/",
+    title: "Aurora Skin Analyzer – AI-Powered Skin Condition Detection & Care",
+    description:
+      "Detect acne, wrinkles, dryness & more with Aurora – an AI skin analyzer using deep learning & IoT for accurate, real-time skin health insights and care tips.",
+    siteName: "Skin Analyzer",
+    images: [
+      { url: "https://skin-analyzer-frontend.vercel.app/opengraph-image.webp" },
+    ],
+  },
 };
 
 export default function RootLayout({
