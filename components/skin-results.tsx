@@ -2,8 +2,14 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { RefreshCw, AlertTriangle } from "lucide-react";
+import {
+  RefreshCw,
+  AlertTriangle,
+  ChevronRight,
+  ChevronDown,
+} from "lucide-react";
 import { PredictionResponse } from "@/types";
+import Link from "next/link";
 
 interface SkinResultsProps {
   capturedImage: string;
@@ -34,10 +40,9 @@ export default function SkinResults({
         </div>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid md:grid-cols-2 gap-6 md:gap-14">
         {/* Image Preview */}
         <div>
-          <h3 className="text-2xl my-4">Your Skin Analysis</h3>
           <Card className="overflow-hidden">
             <img
               src={capturedImage || "/placeholder-image.jpg"}
@@ -51,20 +56,20 @@ export default function SkinResults({
         <div className="space-y-4">
           <div>
             <div className="flex items-center justify-between">
-              <h3 className="text-2xl font-medium">Detected Condition</h3>
+              <h3 className="text-3xl lg:text-5xl">Detected Condition</h3>
             </div>
-            <Card className="bg-background/50 my-4 max-w-[400px]">
+            <Card className="bg-background/50 my-4 w-full">
               <CardContent className="pt-6">
                 <div className="flex items-baseline justify-between">
-                  <h4 className="text-xl font-semibold">
+                  <h4 className="text-xl font-semibold font-sans capitalize">
                     {predicted_condition}
                   </h4>
                   <span className="text-sm text-muted-foreground">
-                    {confidence.toFixed(1)}%
+                    {(confidence * 100).toFixed(1)}%
                   </span>
                 </div>
                 {info?.description && (
-                  <p className="mt-4 text-muted-foreground">
+                  <p className="mt-4 text-muted-foreground max-w-[50ch]">
                     {info.description}
                   </p>
                 )}
@@ -76,15 +81,24 @@ export default function SkinResults({
               rel="noopener noreferrer"
               className="mt-6 block"
             >
-              <Button variant="default">Book Free Consultation</Button>
+              <Button variant="default" className="w-full group mt-10 md:mt-14">
+                Book Free Consultation{" "}
+                <ChevronRight className="ml-3 group-hover:ml-5 duration-300" />
+              </Button>
             </a>
+            <Button variant="outline" asChild className="mt-8 w-full group">
+              <Link href={"/analyze#products"}>
+                View Recommended Products{" "}
+                <ChevronDown className="ml-3 group-hover:ml-5 duration-300" />
+              </Link>
+            </Button>
           </div>
         </div>
       </div>
 
       {/* Recommended Products */}
       {recommendedProducts.length > 0 && (
-        <div className="pt-16 md:pt-32">
+        <div className="pt-16 md:pt-32" id="products">
           <h3 className="text-2xl  mb-8 md:mb-12">Recommended Products</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pb-10">
             {recommendedProducts.map((product) => (
