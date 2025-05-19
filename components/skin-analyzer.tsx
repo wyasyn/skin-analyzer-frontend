@@ -77,7 +77,7 @@ export default function SkinAnalyzer() {
       const form = new FormData();
       form.append("file", file);
 
-      const res = await fetch(`${baseUrl}/predict`, {
+      const res = await fetch(`${baseUrl}/predict/`, {
         method: "POST",
         body: form,
       });
