@@ -12,7 +12,7 @@ export default function HeroSection() {
   ];
   return (
     <HeroWrapper>
-      <section className=" pt-14 md:pt-24">
+      <section className="  md:pt-20">
         <div className="wrapper grid gap-4 md:grid-cols-2  ">
           <div className="py-8 md:py-14">
             <h1 className=" text-3xl md:text-4xl lg:text-5xl max-w-[15ch]  ">
@@ -47,7 +47,7 @@ export default function HeroSection() {
                 width={heroImg.width}
                 height={heroImg.height}
                 alt="hero"
-                className="rounded-2xl object-contain"
+                className="rounded-2xl object-contain w-full h-full"
                 placeholder="blur"
                 blurDataURL={heroImg.blurDataURL}
                 priority

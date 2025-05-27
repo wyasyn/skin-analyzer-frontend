@@ -6,6 +6,22 @@ import { AnalyzeLink } from "./get-started";
 import { Button } from "./ui/button";
 import { ModeToggle } from "./mode-toggle";
 import Logo from "./logo";
+import Insta from "@/assets/instagram.svg";
+import LinkedIn from "@/assets/linkedin.svg";
+import SocialIcon from "./social-icon";
+
+const socialData = [
+  {
+    name: "Instagram",
+    link: "https://www.instagram.com/auroraorganics4u/",
+    icon: Insta,
+  },
+  {
+    name: "LinkedIn",
+    link: "https://www.linkedin.com/company/auroraorganics",
+    icon: LinkedIn,
+  },
+];
 
 export default async function Navbar() {
   const session = await auth();
@@ -37,6 +53,15 @@ export default async function Navbar() {
             />
           )}
           <ModeToggle />
+          <div className="flex items-center gap-2">
+            {socialData.map((social) => (
+              <SocialIcon
+                key={social.name}
+                link={social.link}
+                icon={social.icon}
+              />
+            ))}
+          </div>
         </section>
       </nav>
     </header>

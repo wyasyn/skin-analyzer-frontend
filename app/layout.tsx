@@ -1,30 +1,23 @@
 import type { Metadata } from "next";
 import { Toaster } from "@/components/ui/sonner";
 import { SessionProvider } from "next-auth/react";
-import { Inter, Playfair_Display } from "next/font/google";
-import localFont from "next/font/local";
+import { Roboto, Cormorant_Garamond } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 import Footer from "@/components/footer";
 import { cn } from "@/lib/utils";
 
-const inter = Inter({
+const roboto = Roboto({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
 });
 
-const gambarino = localFont({
-  src: "../assets/fonts/gambarino.woff2",
-  variable: "--font-serif",
-  display: "swap",
-});
-
-const playfair = Playfair_Display({
-  weight: ["400", "500", "600", "700"],
+const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   variable: "--font-serif",
   display: "swap",
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -54,8 +47,8 @@ export default function RootLayout({
       <body
         className={cn(
           "flex flex-col min-h-screen bg-background mesh",
-          inter.variable,
-          gambarino.variable
+          roboto.variable,
+          cormorant.variable
         )}
       >
         <ThemeProvider

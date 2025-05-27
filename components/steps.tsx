@@ -39,7 +39,7 @@ const aiSkinAnalyzerSteps: Step[] = [
 
 const SkinAnalyzerSteps = () => {
   return (
-    <section className="py-16 md:py-40 wrapper">
+    <section className="py-8 md:py-24 wrapper">
       <h2 className="text-3xl md:text-5xl text-center mb-10 md:mb-24 ">
         How It Works
       </h2>
@@ -51,7 +51,7 @@ const SkinAnalyzerSteps = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: index * 0.1 }}
             viewport={{ once: true }}
-            className="flex items-start gap-4 flex-col py-6 px-8 rounded-2xl shadow-md border-4 border-primary/75 hover:shadow-lg hover:shadow-primary/50 transition-shadow"
+            className="flex items-start gap-4 flex-col py-6 px-8 rounded-2xl border hover:shadow transition-shadow"
           >
             <div className="flex-shrink-0 flex items-start justify-between w-full">
               <span className="text-5xl font-mono font-bold">{index + 1}</span>
