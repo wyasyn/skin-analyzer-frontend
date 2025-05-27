@@ -40,7 +40,7 @@ export default function HeroSection() {
             </ul>
             <CtaBtns />
           </div>
-          <div className="overflow-clip rounded-2xl">
+          <div className="overflow-clip rounded-2xl perspective-[1000px]">
             <HeroMotion>
               <Image
                 src={heroImg.src}
